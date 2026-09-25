@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Disponibilidad from "@/components/Disponibilidad";
 import { formatUsd, products } from "@/lib/products";
 import styles from "./catalogo.module.css";
 
@@ -17,6 +18,7 @@ export default function Catalogo() {
               <Image src={p.images[0]} alt={p.name} width={800} height={600} className={styles.img} />
               <h2 className={styles.name}>{p.name}</h2>
               <p className={styles.price}>{formatUsd(p.priceUsd)}</p>
+              <Disponibilidad disponible={p.disponible} />
             </Link>
           </li>
         ))}

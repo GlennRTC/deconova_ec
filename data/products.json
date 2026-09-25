@@ -8,7 +8,13 @@
       "/productos/placeholder-lateral.svg",
       "/productos/placeholder-detalle.svg",
       "/productos/placeholder-ambiente.svg"
-    ]
+    ],
+    "disponible": false,
+    "dimensionesCm": {
+      "alto": 85,
+      "ancho": 220,
+      "profundidad": 95
+    }
   },
   {
     "slug": "demo-mesa-comedor-seis",
@@ -18,7 +24,13 @@
       "/productos/placeholder-frente.svg",
       "/productos/placeholder-lateral.svg",
       "/productos/placeholder-detalle.svg"
-    ]
+    ],
+    "disponible": true,
+    "dimensionesCm": {
+      "alto": 76,
+      "ancho": 180,
+      "profundidad": 90
+    }
   },
   {
     "slug": "demo-poltrona",
@@ -26,6 +38,7 @@
     "priceUsd": 540,
     "images": [
       "/productos/placeholder-frente.svg"
-    ]
+    ],
+    "disponible": true
   }
 ]

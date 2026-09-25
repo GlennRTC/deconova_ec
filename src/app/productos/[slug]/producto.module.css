@@ -14,10 +14,34 @@
 
 .price {
   font-size: 1.25rem;
+  margin: 0.5rem 0 1rem;
   color: var(--accent-gold-light);
 }
 
 /* sin esto, la fila de miniaturas ensancha la columna y saca las flechas del viewport en mobile */
 .main > * {
   min-width: 0;
+}
+
+/* medidas en una fila junto al precio: visibles sin scroll también en mobile (F005) */
+.medidas {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: 1.75rem;
+  margin: 0 0 1rem;
+  padding: 0.75rem 0;
+  border-block: 1px solid var(--material-walnut);
+}
+
+.medidas dt {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.medidas dd {
+  margin: 0;
 }

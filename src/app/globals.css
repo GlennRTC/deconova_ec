@@ -119,3 +119,11 @@ a {
   background: var(--bg-surface);
   border-top: 3px solid var(--material-walnut);
 }
+
+.disponibilidad {
+  margin: 0.5rem 0 0;
+}
+
+.disponibilidad.disponible {
+  color: var(--accent-gold-light);
+}

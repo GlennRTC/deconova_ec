@@ -57,3 +57,12 @@
 **Estado al cerrar:** F002 passing (con fotos placeholder).
 **Pendiente para la próxima sesión:** F005 (medidas) y F006 (disponibilidad) — el home ya promete "medidas y disponibilidad en cada ficha", así que son las siguientes. Fotos reales y número de WhatsApp siguen pendientes del cliente. Nota: `pkill -f <patrón>` en un comando compuesto mata su propia shell (exit 144) — usar `pgrep` para buscar el PID y `kill` por separado.
 **Commit:** F002: identidad visual y home con design system del cliente
+
+## 2026-09-25 — Sesión 5
+**Feature(s) trabajada(s):** F005 — Dimensiones y medidas visibles; F006 — Disponibilidad visible (a pedido del usuario, ambas en una sesión: son chicas y comparten la ficha de producto)
+**Qué se hizo:** `data/products.json` ganó `disponible` (boolean, obligatorio) y `dimensionesCm {alto, ancho, profundidad}` (opcional); ambos validados en `src/lib/products.ts` (dato roto = build roto). Medidas placeholder en sofá y mesa; poltrona sin medidas a propósito → muestra "Medidas a confirmar. Escríbenos y te las enviamos." Disponibilidad demo asignada al azar por pedido del usuario (sofá bajo pedido, mesa y poltrona disponibles). Componente `Disponibilidad` compartido por catálogo y ficha. En la ficha, "Bajo pedido" agrega "Se fabrica al confirmar tu pedido; el tiempo de entrega se coordina contigo." (sin inventar semanas).
+**Bug encontrado y corregido:** el primer diseño ponía las medidas después de disponibilidad con su propio título; el e2e mobile mostró que quedaban bajo el pliegue (criterio F005 exige sin scroll). Se movieron a una fila compacta de 3 columnas justo debajo del precio.
+**Verificación realizada:** `env -u NODE_ENV ./scripts/init.sh --no-dev` → 42/42 Playwright. Nuevo `e2e/ficha.spec.ts`: medidas en viewport (mobile y desktop) con valores del JSON o aviso, disponibilidad en ficha y catálogo según el JSON, y un guard de que los datos demo cubren ambos casos. Capturas revisadas (ficha mobile de sofá y poltrona, catálogo desktop).
+**Estado al cerrar:** F005 passing, F006 passing (con datos placeholder). El criterio de F006 "bajo pedido no bloquea agregar al carrito" es trivialmente cierto hoy (no hay carrito); re-verificarlo en F010.
+**Pendiente para la próxima sesión:** F010 (carrito localStorage) y F011 (vista de carrito) — con ellas empieza el embudo de compra. Medidas, disponibilidad y fotos reales siguen pendientes del cliente.
+**Commit:** F005 + F006: medidas y disponibilidad en catálogo y ficha

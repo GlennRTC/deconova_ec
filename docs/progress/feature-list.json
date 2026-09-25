@@ -80,11 +80,11 @@
         "Las medidas se renderizan en la página de producto sin necesidad de scroll extra (visibles junto al precio/CTA)",
         "Si un producto no tiene medidas cargadas, se muestra un aviso explícito ('medidas a confirmar') en vez de omitir el campo silenciosamente"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Ausencia de medidas es causa frecuente de reclamo/devolución en muebles -- crítico incluso sin devoluciones automatizadas porque acá la devolución es 100% manual y cuesta más resolverla."
+      "notes": "Ausencia de medidas es causa frecuente de reclamo/devolución en muebles -- crítico incluso sin devoluciones automatizadas porque acá la devolución es 100% manual y cuesta más resolverla. | Sesión 5: passing con medidas placeholder (sofá y mesa); la poltrona sin medidas a propósito para ejercitar 'Medidas a confirmar'. Campo dimensionesCm {alto, ancho, profundidad} validado en build. Verificado con e2e/ficha.spec.ts (visibles en viewport mobile sin scroll)."
     },
     {
       "id": "F006",
@@ -96,11 +96,11 @@
         "Un producto 'bajo pedido' no bloquea agregarlo al carrito, pero el texto deja claro que el tiempo de entrega es distinto",
         "El estado viene del campo `disponible` en /data/products.json, no hay lógica de stock en tiempo real"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Refleja ADR-001: inventario editorial, sin decremento atómico. La verificación real de stock ocurre en la confirmación manual del vendedor, no en el código."
+      "notes": "Refleja ADR-001: inventario editorial, sin decremento atómico. La verificación real de stock ocurre en la confirmación manual del vendedor, no en el código. | Sesión 5: passing con disponibilidad demo asignada al azar (sofá bajo pedido; mesa y poltrona disponibles). Campo disponible boolean obligatorio, validado en build. 'No bloquea el carrito' se re-verifica cuando exista F010."
     },
     {
       "id": "F007",

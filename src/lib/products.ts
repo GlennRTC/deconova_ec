@@ -5,6 +5,8 @@ export type Product = {
   name: string;
   priceUsd: number;
   images: string[]; // images[0] = imagen principal
+  disponible: boolean; // editorial, sin stock en tiempo real (ADR-001)
+  dimensionesCm?: { alto: number; ancho: number; profundidad: number }; // ausente = "medidas a confirmar"
 };
 
 // data/products.json se edita a mano: un dato roto debe romper el build, no publicarse.
@@ -14,6 +16,10 @@ function validate(p: Product, i: number): Product {
   if (!p.name?.trim()) throw new Error(`${where}: falta name`);
   if (typeof p.priceUsd !== "number" || !(p.priceUsd > 0)) throw new Error(`${where}: priceUsd debe ser número > 0`);
   if (!Array.isArray(p.images) || !p.images.length) throw new Error(`${where}: images vacío`);
+  if (typeof p.disponible !== "boolean") throw new Error(`${where}: disponible debe ser true o false`);
+  const d = p.dimensionesCm;
+  if (d && ![d.alto, d.ancho, d.profundidad].every((n) => typeof n === "number" && n > 0))
+    throw new Error(`${where}: dimensionesCm requiere alto, ancho y profundidad > 0`);
   return p;
 }
 
