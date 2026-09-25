@@ -104,9 +104,12 @@
   background: var(--bg-surface);
 }
 
-.summary > p:last-child {
+.summary > p:last-of-type {
   font-size: 0.875rem;
-  margin-bottom: 0;
+}
+
+.continuar {
+  width: 100%;
 }
 
 .row {

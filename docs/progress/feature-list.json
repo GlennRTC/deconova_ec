@@ -193,11 +193,11 @@
         "Un envío exitoso redirige a la página de confirmación (F018) con el pedido identificable",
         "El comprador completa el pedido sin necesidad de crear una cuenta"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": true,
       "requires_architecture_decision": false,
-      "notes": "Toca datos personales del cliente (nombre, teléfono, email, dirección) almacenados en Netlify Forms -- requiere revisión de security-compliance-reviewer antes de build (retención de datos, acceso al dashboard de Netlify, quién puede verlos)."
+      "notes": "Toca datos personales del cliente (nombre, teléfono, email, dirección) almacenados en Netlify Forms -- requiere revisión de security-compliance-reviewer antes de build (retención de datos, acceso al dashboard de Netlify, quién puede verlos). | Sesión 9: passing. /checkout/ (CheckoutForm): nombre, teléfono, email, dirección obligatorios con maxLength/pattern; data-netlify + honeypot + inputs ocultos (pedido-id, pedido, total); sin cuenta. Esqueleto public/__forms.html para detección de Netlify. Revisión de seguridad (security-compliance-reviewer, sesión 9): sin PII en localStorage/URLs/logs, entrada validada, sin XSS, sin campos de tarjeta; hallazgos bloqueantes corregidos (build robusto a NODE_ENV, freno de publicación con datos DEMO)."
     },
     {
       "id": "F013",
@@ -209,11 +209,11 @@
         "Si elige 'Resto del país', el texto aclara explícitamente que el costo se coordina por WhatsApp y no se cobra en este flujo",
         "La zona elegida viaja en el envío de Netlify Forms junto con el resto del pedido"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": true,
-      "notes": "Decisión abierta (ADR-001): tarifa fija o umbral de envío gratis para Miranda/Caracas -- monto TBD del cliente. Default sugerido: no cobrar automáticamente en v1, mostrar 'se confirma monto final por WhatsApp' para ambas zonas hasta tener el número."
+      "notes": "Decisión abierta (ADR-001): tarifa fija o umbral de envío gratis para Miranda/Caracas -- monto TBD del cliente. Default sugerido: no cobrar automáticamente en v1, mostrar 'se confirma monto final por WhatsApp' para ambas zonas hasta tener el número. | Sesión 9: passing. Zonas en src/lib/negocio.ts; ambas sin cobro automático (default del ADR hasta tener la tarifa del cliente). Revisión de seguridad (security-compliance-reviewer, sesión 9): sin PII en localStorage/URLs/logs, entrada validada, sin XSS, sin campos de tarjeta; hallazgos bloqueantes corregidos (build robusto a NODE_ENV, freno de publicación con datos DEMO)."
     },
     {
       "id": "F014",
@@ -225,11 +225,11 @@
         "El pedido queda explícitamente marcado como 'pendiente de confirmación' en la pantalla",
         "No se pide ni se almacena ningún dato de tarjeta (PAN) en ningún punto del flujo"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": true,
       "requires_architecture_decision": false,
-      "notes": "Requiere revisión de seguridad: se exponen datos bancarios propios del negocio en el frontend público -- confirmar con el cliente que está de acuerdo en publicarlos así (vs. enviarlos solo por WhatsApp tras el pedido). Pendiente del cliente: datos bancarios reales (teléfono Pago Móvil, cédula/RIF, banco, número de cuenta de transferencia) -- no inventar."
+      "notes": "Requiere revisión de seguridad: se exponen datos bancarios propios del negocio en el frontend público -- confirmar con el cliente que está de acuerdo en publicarlos así (vs. enviarlos solo por WhatsApp tras el pedido). Pendiente del cliente: datos bancarios reales (teléfono Pago Móvil, cédula/RIF, banco, número de cuenta de transferencia) -- no inventar. | Sesión 9: passing con datos bancarios [DEMO]. Se muestran solo en la confirmación (método elegido + el otro en <details>), copiables. PENDIENTE DEL CLIENTE: datos reales y aprobar publicarlos en el frontend (vs. solo por WhatsApp). Revisión de seguridad (security-compliance-reviewer, sesión 9): sin PII en localStorage/URLs/logs, entrada validada, sin XSS, sin campos de tarjeta; hallazgos bloqueantes corregidos (build robusto a NODE_ENV, freno de publicación con datos DEMO)."
     },
     {
       "id": "F015",
@@ -261,7 +261,7 @@
       "priority": "P0",
       "requires_security_review": true,
       "requires_architecture_decision": true,
-      "notes": "Decisión abierta (ADR-001): límites/comportamiento de spam de Netlify Forms cambia con el tiempo -- verificar antes de depender de esto en producción. Requiere revisión de seguridad por almacenar datos de cliente en un servicio de terceros (Netlify)."
+      "notes": "Decisión abierta (ADR-001): límites/comportamiento de spam de Netlify Forms cambia con el tiempo -- verificar antes de depender de esto en producción. Requiere revisión de seguridad por almacenar datos de cliente en un servicio de terceros (Netlify). | Sesión 9: código listo (honeypot netlify-honeypot='bot-field' según doc vigente, POST urlencoded a '/', esqueleto __forms.html). Doc vigente: en planes por créditos Forms es gratis e ilimitado; planes free legacy tienen límite no publicado en esa página. Sigue failing: falta un deploy real (activar 'Enable form detection' en Netlify) y ver el envío en el dashboard. Validación solo client-side (inherente a sin backend): si hay spam, evaluar data-netlify-recaptcha."
     },
     {
       "id": "F017",
@@ -273,11 +273,11 @@
         "El link de fallback abre wa.me con el número de Deconova y un mensaje pre-llenado que incluye el resumen del pedido",
         "El comprador nunca queda sin una acción disponible para completar el pedido"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": true,
       "requires_architecture_decision": false,
-      "notes": "El mensaje pre-llenado de wa.me contiene datos del pedido (y potencialmente del comprador) en la URL -- revisar qué se incluye ahí para no filtrar más de lo necesario. Pendiente del cliente: número de WhatsApp de negocio real para el link wa.me."
+      "notes": "El mensaje pre-llenado de wa.me contiene datos del pedido (y potencialmente del comprador) en la URL -- revisar qué se incluye ahí para no filtrar más de lo necesario. Pendiente del cliente: número de WhatsApp de negocio real para el link wa.me. | Sesión 9: passing. Error inline role=alert + wa.me con id, líneas, total, zona y método, sin datos personales; carrito intacto para reintentar. Número WhatsApp placeholder inválido a propósito. Revisión de seguridad (security-compliance-reviewer, sesión 9): sin PII en localStorage/URLs/logs, entrada validada, sin XSS, sin campos de tarjeta; hallazgos bloqueantes corregidos (build robusto a NODE_ENV, freno de publicación con datos DEMO)."
     },
     {
       "id": "F018",
@@ -290,11 +290,11 @@
         "Hay un botón/link wa.me pre-llenado para enviar el comprobante de pago referenciando el número de pedido",
         "La página sigue siendo accesible si el usuario recarga (no depende de estado en memoria que se pierda)"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": true,
       "requires_architecture_decision": false,
-      "notes": "No hay email automático de confirmación (ADR-001 descarta Snipcart) -- el email de notificación es el nativo de Netlify Forms al vendedor, no al comprador. Si se necesita confirmar por email al comprador, es una decisión de negocio a validar (fuera de alcance v1 salvo que el cliente lo pida)."
+      "notes": "No hay email automático de confirmación (ADR-001 descarta Snipcart) -- el email de notificación es el nativo de Netlify Forms al vendedor, no al comprador. Si se necesita confirmar por email al comprador, es una decisión de negocio a validar (fuera de alcance v1 salvo que el cliente lo pida). | Sesión 9: passing. /pedido/: 'Pendiente de confirmación', id DN-AAMMDD-XXXX, resumen, datos de pago, wa.me para comprobante; sobrevive a recargar (localStorage sin PII, validado al leer; total recalculado del catálogo). Revisión de seguridad (security-compliance-reviewer, sesión 9): sin PII en localStorage/URLs/logs, entrada validada, sin XSS, sin campos de tarjeta; hallazgos bloqueantes corregidos (build robusto a NODE_ENV, freno de publicación con datos DEMO)."
     },
     {
       "id": "F019",
@@ -310,7 +310,7 @@
       "priority": "P0",
       "requires_security_review": true,
       "requires_architecture_decision": true,
-      "notes": "Decisión abierta (ADR-001): ¿migrar en el futuro a un panel de pedidos (Airtable/Sheets) más allá de Netlify Forms? Default sugerido para v1: quedarse con el dashboard/email nativo de Netlify Forms hasta tener evidencia de volumen que lo justifique. Requiere seguridad por concentrar datos de clientes en el dashboard de Netlify (quién tiene acceso a la cuenta)."
+      "notes": "Decisión abierta (ADR-001): ¿migrar en el futuro a un panel de pedidos (Airtable/Sheets) más allá de Netlify Forms? Default sugerido para v1: quedarse con el dashboard/email nativo de Netlify Forms hasta tener evidencia de volumen que lo justifique. Requiere seguridad por concentrar datos de clientes en el dashboard de Netlify (quién tiene acceso a la cuenta). | Sesión 9: sigue failing, requiere cuenta/deploy de Netlify: configurar notificación por email y documentar exportación CSV. Decidir quién accede al dashboard (contiene PII) y política de retención."
     },
     {
       "id": "F020",

@@ -71,3 +71,7 @@ export function setQty(slug: string, qty: number) {
 export function removeFromCart(slug: string) {
   write(read().filter((i) => i.slug !== slug));
 }
+
+export function clearCart() {
+  write([]);
+}

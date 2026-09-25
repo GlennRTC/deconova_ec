@@ -60,6 +60,7 @@ export default function CartView() {
           <p className="muted">
             Total referencial en USD. Confirmamos el monto final contigo al revisar tu pedido.
           </p>
+          <Link href="/checkout/" className={`btn ${styles.continuar}`}>Continuar con el pedido</Link>
         </aside>
       </div>
     </main>

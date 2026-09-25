@@ -1,0 +1,19 @@
+<!doctype html>
+<!-- Solo para la detección de Netlify Forms al desplegar (el formulario real lo renderiza React en /checkout/).
+     Mantener los names sincronizados con src/components/CheckoutForm.tsx. -->
+<html lang="es">
+  <body>
+    <form name="pedido" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="pedido-id" />
+      <input name="nombre" />
+      <input name="telefono" />
+      <input name="email" />
+      <textarea name="direccion"></textarea>
+      <input name="zona" />
+      <input name="metodo" />
+      <textarea name="pedido"></textarea>
+      <input name="total" />
+    </form>
+  </body>
+</html>
