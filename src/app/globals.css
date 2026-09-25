@@ -1,4 +1,21 @@
-/* Placeholder: paleta y tipografía reales llegan con F002 (identidad visual). */
+/* Design system Deconova (aprobado por el cliente, sesión 4). 60% base oscura / 30% neutros / 10% dorado. */
+:root {
+  --bg-primary: #141210;
+  --bg-surface: #1f1c19;
+  --accent-gold: #b8935a;
+  --accent-gold-light: #d4b483;
+  --text-primary: #ede6d8;
+  --text-muted: #a89684;
+  --material-walnut: #4a3327;
+  --material-marble: #5c5a57;
+  --contrast-hard: #0d0c0b;
+
+  --font-heading: var(--font-fraunces), serif;
+  --font-accent: var(--font-italiana), serif;
+  --font-label: var(--font-jost), sans-serif;
+  --font-body: var(--font-work-sans), sans-serif;
+}
+
 *,
 *::before,
 *::after {
@@ -7,7 +24,98 @@
 
 body {
   margin: 0;
-  font-family: Georgia, serif;
-  color: #2b2622;
-  background: #f6f2ec;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 6vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+}
+
+a {
+  color: var(--accent-gold-light);
+  text-underline-offset: 0.2em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 3px;
+}
+
+.label {
+  font-family: var(--font-label);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.accent {
+  font-family: var(--font-accent);
+  color: var(--accent-gold-light);
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  padding: 1.25rem clamp(1rem, 4vw, 3rem);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--contrast-hard);
+}
+
+.brand {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.site-header nav {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+}
+
+.site-header nav a {
+  color: var(--text-primary);
+  text-decoration: none;
+  padding-block: 0.5rem;
+}
+
+.site-header nav a:hover {
+  color: var(--accent-gold-light);
+}
+
+.site-footer {
+  margin-top: 5rem;
+  padding: 3rem clamp(1rem, 4vw, 3rem) 4rem;
+  background: var(--bg-surface);
+  border-top: 3px solid var(--material-walnut);
 }

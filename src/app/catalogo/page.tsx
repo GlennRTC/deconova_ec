@@ -16,8 +16,8 @@ export default function Catalogo() {
             <Link href={`/productos/${p.slug}/`}>
               <Image src={p.images[0]} alt={p.name} width={800} height={600} className={styles.img} />
               <h2 className={styles.name}>{p.name}</h2>
+              <p className={styles.price}>{formatUsd(p.priceUsd)}</p>
             </Link>
-            <p className={styles.price}>{formatUsd(p.priceUsd)}</p>
           </li>
         ))}
       </ul>

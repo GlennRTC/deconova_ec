@@ -17,7 +17,8 @@
   min-height: 2.75rem;
   font-size: 1.75rem;
   border: 0;
-  background: rgb(246 242 236 / 0.85);
+  background: rgb(20 18 16 / 0.8);
+  color: var(--text-primary);
   cursor: pointer;
 }
 
@@ -46,7 +47,7 @@
 }
 
 .thumbs button[aria-current="true"] {
-  border-color: currentColor;
+  border-color: var(--accent-gold);
 }
 
 .thumbs img {

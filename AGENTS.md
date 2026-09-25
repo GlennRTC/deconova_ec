@@ -110,6 +110,8 @@ Ver `.claude/agents/` y `docs/AGENT_TEAM.md` para el razonamiento completo (incl
 
 ## Qué NO hacer
 
+> Sistema visual aprobado (paleta, fuentes, reglas de composición): `docs/design-system.md`.
+
 - Evita utilizar:
   - Layout y estructura
 

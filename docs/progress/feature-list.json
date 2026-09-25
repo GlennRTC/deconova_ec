@@ -32,11 +32,11 @@
         "No hay copy genérico tipo 'Transform your...' ni CTAs tipo 'Get Started' sin especificidad",
         "No hay social proof simulado (ej. 'Trusted by...') sin logos/datos reales"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Pendiente del cliente: acceso a fotos reales de producto y paleta/tipografía exacta extraída del Instagram (no inventar valores de marca)."
+      "notes": "Pendiente del cliente: acceso a fotos reales de producto y paleta/tipografía exacta extraída del Instagram (no inventar valores de marca). | Sesión 4: passing con el design system entregado por el cliente (docs/design-system.md) y fotos placeholder (el cliente aún no tiene fotos). Verificado con e2e/home.spec.ts + revisión visual por capturas mobile/desktop."
     },
     {
       "id": "F003",
