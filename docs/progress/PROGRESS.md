@@ -32,3 +32,11 @@
 **Estado al cerrar:** F001 passing.
 **Pendiente para la próxima sesión:** siguiente P0 en orden: F002 (identidad visual y home). Necesita paleta y tipografía del Instagram de Deconova (dato del cliente pendiente; si no llega, proponer y marcar como provisional). Falta `netlify.toml` (build `npm run build`, publish `out`) cuando se haga el primer deploy. `npm` avisa de un postinstall sin aprobar en `unrs-resolver` (dependencia de eslint-config-next); lint funciona igual.
 **Commit:** F001: scaffold Next.js static export + smoke e2e
+
+## 2026-09-25 — Sesión 2
+**Feature(s) trabajada(s):** F003 — Catálogo de productos desde /data/products.json
+**Qué se hizo:** Se eligió F003 antes que F002 porque F002 está bloqueada por datos de marca del cliente (paleta/tipografía/fotos; su nota pide no inventarlos) y F003 no. `data/products.json` con 3 productos `[DEMO]` y una imagen placeholder SVG ("Foto pendiente"). `src/lib/products.ts` tipa y valida el JSON en build time (slug, name, priceUsd > 0, images no vacío, slugs únicos): un dato roto rompe el build en vez de publicarse. Esquema mínimo a propósito (slug, name, priceUsd, images) — F004/F005/F006 agregan campos (galería, medidas, disponibilidad). `/catalogo/` es server component → HTML estático; precio con `Intl` es-VE ("USD 1.250,00"). Tarjetas sin link a detalle todavía (la ruta de producto es F004). Home con link provisional "Ver catálogo" (F002 lo rediseña).
+**Verificación realizada:** `env -u NODE_ENV ./scripts/init.sh --no-dev` → 8/8 Playwright (mobile+desktop). Manual: agregar un producto al JSON + `npm run build` → aparece en `out/catalogo/index.html`; `priceUsd` inválido → build exit 1. JSON restaurado después.
+**Estado al cerrar:** F003 passing (con data demo).
+**Pendiente para la próxima sesión:** F004 (página de producto con galería), que habilita el link desde las tarjetas del catálogo. F002 sigue esperando paleta/tipografía/fotos del cliente. Nota operativa: la shell es zsh — usar `$?` o `$pipestatus`, no `${PIPESTATUS[0]}`.
+**Commit:** F003: catálogo estático desde data/products.json

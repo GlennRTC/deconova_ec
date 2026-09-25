@@ -48,11 +48,11 @@
         "Cada producto del JSON aparece en el listado con nombre, precio en USD e imagen principal",
         "Agregar un producto al JSON y re-buildear lo refleja en el listado sin cambios de código"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Pendiente del cliente: catálogo real (nombres, precios USD, categorías, disponibilidad) para poblar el JSON -- hoy no existe data real, solo la decisión de formato (ADR-001)."
+      "notes": "Pendiente del cliente: catálogo real (nombres, precios USD, categorías, disponibilidad) para poblar el JSON -- hoy no existe data real, solo la decisión de formato (ADR-001). | Sesión 2: passing con 3 productos [DEMO] placeholder; reemplazar por catálogo real cuando llegue (solo editar el JSON). Verificado: e2e catalogo.spec.ts + agregar producto al JSON y rebuild lo publica + priceUsd inválido rompe el build."
     },
     {
       "id": "F004",

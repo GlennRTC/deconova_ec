@@ -11,6 +11,7 @@ export default function Home() {
       <main>
         <h1>Deconova</h1>
         <p>Sitio en construcción.</p>
+        <Link href="/catalogo/">Ver catálogo</Link>
       </main>
     </>
   );

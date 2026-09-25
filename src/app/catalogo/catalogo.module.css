@@ -1,0 +1,29 @@
+/* Estructural; el estilo de marca llega con F002. */
+.main {
+  padding: 2rem 1rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 2rem 1.5rem;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.name {
+  font-size: 1.125rem;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.price {
+  margin: 0;
+}
