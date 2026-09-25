@@ -1,0 +1,458 @@
+{
+  "_readme": "Copia este archivo a docs/progress/feature-list.json al iniciar el proyecto (el .template.json no se edita). Formato JSON a propósito -- el modelo edita JSON con más cuidado que Markdown. Regla no negociable: solo se edita 'status' y 'notes' de una feature existente; nunca se borra o edita un test para forzar 'passing'. Toda feature nueva descubierta durante el trabajo se agrega con status 'failing', nunca se implementa sin registrar.",
+  "project": "deconova_ec",
+  "created": "2026-09-25",
+  "features": [
+    {
+      "id": "F001",
+      "title": "Scaffold del proyecto Next.js + script de arranque + smoke test",
+      "description": "Proyecto Next.js (App Router, output: 'export') inicializado, con ./scripts/init.sh que instala dependencias y levanta el entorno de desarrollo, y un smoke test de Playwright que confirma que el home carga.",
+      "funnel_stage": "admin",
+      "acceptance_criteria": [
+        "./scripts/init.sh instala dependencias y levanta `npm run dev` (o build+export) sin pasos manuales adicionales",
+        "next.config tiene output: 'export' y `npm run build` genera /out sin errores",
+        "Un test de Playwright navega a '/' y verifica que responde 200 y renderiza al menos un elemento identificable (ej. el logo o el nav)",
+        "El test corre con un solo comando documentado en AGENTS.md (sección Comandos de proyecto)"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Es la base de toda sesión futura: sin esto, el protocolo de inicio de sesión de AGENTS.md (paso 4-5) no se puede seguir. Bloquea todo lo demás."
+    },
+    {
+      "id": "F002",
+      "title": "Identidad visual y home",
+      "description": "Home con identidad visual coherente con el Instagram de Deconova (paleta, tipografía, estilo de foto de producto), evitando los anti-patrones listados en AGENTS.md ('Qué NO hacer').",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "El home no usa hero centrado genérico con 2 botones (filled/outline), grid de 3 columnas ícono+título+párrafo, ni gradiente violeta-azul/índigo-rosa",
+        "La tipografía tiene jerarquía real (no solo Inter/system-ui con h1/h2/p por defecto)",
+        "El home enlaza directo a catálogo y a al menos una página de confianza (quiénes somos o contacto)",
+        "No hay copy genérico tipo 'Transform your...' ni CTAs tipo 'Get Started' sin especificidad",
+        "No hay social proof simulado (ej. 'Trusted by...') sin logos/datos reales"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pendiente del cliente: acceso a fotos reales de producto y paleta/tipografía exacta extraída del Instagram (no inventar valores de marca)."
+    },
+    {
+      "id": "F003",
+      "title": "Catálogo de productos desde /data/products.json",
+      "description": "Listado de productos generado en build-time desde /data/products.json (SSG), sin backend ni CMS.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "El listado de catálogo se genera a partir de /data/products.json en build time (visible en el HTML sin JS, verificable con `curl` o 'view source')",
+        "Cada producto del JSON aparece en el listado con nombre, precio en USD e imagen principal",
+        "Agregar un producto al JSON y re-buildear lo refleja en el listado sin cambios de código"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pendiente del cliente: catálogo real (nombres, precios USD, categorías, disponibilidad) para poblar el JSON -- hoy no existe data real, solo la decisión de formato (ADR-001)."
+    },
+    {
+      "id": "F004",
+      "title": "Página de producto con galería multi-imagen",
+      "description": "Vista de detalle con mínimo 3 imágenes navegables por producto, incluyendo idealmente una foto en ambiente real.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "Cada producto muestra mínimo 3 imágenes navegables (siguiente/anterior o thumbnails)",
+        "Las imágenes usan next/image con lazy loading y tamaños responsive",
+        "Si un producto del JSON tiene menos de 3 imágenes, la página no rompe (degrada mostrando las disponibles, no un error)"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pendiente del cliente: fotografía real por producto (mínimo 3 ángulos + 1 de ambiente). Sin esto se usa placeholder, hay que ser explícito en el pitch de que no es foto final."
+    },
+    {
+      "id": "F005",
+      "title": "Dimensiones y medidas visibles por producto",
+      "description": "Ficha técnica con alto, ancho y profundidad visibles sin scroll adicional en la página de producto.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "Cada producto en el JSON tiene los campos alto/ancho/profundidad (o 'medidas' como string estructurado)",
+        "Las medidas se renderizan en la página de producto sin necesidad de scroll extra (visibles junto al precio/CTA)",
+        "Si un producto no tiene medidas cargadas, se muestra un aviso explícito ('medidas a confirmar') en vez de omitir el campo silenciosamente"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Ausencia de medidas es causa frecuente de reclamo/devolución en muebles -- crítico incluso sin devoluciones automatizadas porque acá la devolución es 100% manual y cuesta más resolverla."
+    },
+    {
+      "id": "F006",
+      "title": "Disponibilidad visible por producto (disponible / bajo pedido)",
+      "description": "Cada producto muestra su estado de inventario editorial: 'disponible' o 'bajo pedido', según el campo booleano del JSON.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "El listado y la página de producto muestran un badge o texto claro: 'Disponible' o 'Bajo pedido'",
+        "Un producto 'bajo pedido' no bloquea agregarlo al carrito, pero el texto deja claro que el tiempo de entrega es distinto",
+        "El estado viene del campo `disponible` en /data/products.json, no hay lógica de stock en tiempo real"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Refleja ADR-001: inventario editorial, sin decremento atómico. La verificación real de stock ocurre en la confirmación manual del vendedor, no en el código."
+    },
+    {
+      "id": "F007",
+      "title": "Info de envío y armado visible antes del checkout",
+      "description": "Costo/rango de envío y si el producto requiere armado, visibles en la página de producto o carrito, no solo al final.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "La página de producto o el carrito muestran si el mueble requiere armado y un tiempo estimado",
+        "Se muestran las dos zonas de envío del ADR (Miranda/Caracas con tarifa fija/gratis desde X monto, resto del país 'a coordinar por WhatsApp') antes de llegar al formulario de checkout",
+        "No aparece ningún costo de envío nuevo recién en la pantalla de confirmación que no se haya mostrado antes"
+      ],
+      "status": "failing",
+      "priority": "P1",
+      "requires_security_review": false,
+      "requires_architecture_decision": true,
+      "notes": "Decisión abierta (ADR-001): tarifa fija o umbral de envío gratis para Miranda/Caracas -- monto TBD, pedir al cliente. Default sugerido si no hay respuesta: mostrar 'a coordinar por WhatsApp' para ambas zonas en v1 y no inventar un monto."
+    },
+    {
+      "id": "F008",
+      "title": "Búsqueda simple por nombre o categoría",
+      "description": "Campo de búsqueda/filtro cliente-side sobre el array de productos, sin motor de búsqueda ni facetas.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "El usuario puede escribir texto y ver el listado filtrado por coincidencia en nombre o categoría",
+        "El filtro se resuelve con un `.filter()` sobre el JSON en el cliente, sin llamada a un backend de búsqueda",
+        "Con 0 resultados se muestra un mensaje explícito, no una lista vacía silenciosa"
+      ],
+      "status": "failing",
+      "priority": "P2",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "ADR-001 descarta motor de búsqueda/facetas para <20 SKUs. Filtros combinables (precio+material+categoría) del borrador anterior se descartan por sobre-alcance; reevaluar solo si el catálogo real crece de forma significativa."
+    },
+    {
+      "id": "F009",
+      "title": "Selector de variantes de color/acabado",
+      "description": "Si un producto tiene variantes reales de color/acabado, selector visual que actualiza imagen principal.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "El usuario puede seleccionar una variante disponible antes de agregar al carrito",
+        "La imagen principal cambia según la variante seleccionada",
+        "Si el producto no tiene variantes, el selector no se renderiza (no hay UI vacía)"
+      ],
+      "status": "failing",
+      "priority": "P2",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pendiente del cliente: confirmar si el catálogo real tiene variantes de color/acabado por SKU. Si no las hay, esta feature se descarta directamente en vez de construir un selector sin uso."
+    },
+    {
+      "id": "F010",
+      "title": "Carrito persistente en localStorage",
+      "description": "Carrito de compras (SKU, cantidad, variante) que persiste en localStorage entre páginas y recargas, sin backend de carrito.",
+      "funnel_stage": "cart",
+      "acceptance_criteria": [
+        "Los productos agregados persisten al navegar entre páginas y al recargar el navegador",
+        "El carrito solo guarda SKU/cantidad/variante -- ningún dato personal del comprador",
+        "Un test de Playwright agrega un producto, navega a otra página y confirma que el contador del carrito no se resetea"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Sin backend de carrito ni Snipcart (ADR-001). requires_security_review=false porque el carrito en sí no contiene datos personales del cliente, a diferencia del formulario de checkout (F012)."
+    },
+    {
+      "id": "F011",
+      "title": "Vista de carrito con edición de cantidades",
+      "description": "El comprador puede ver, modificar cantidad o eliminar ítems del carrito, con total recalculado en el cliente.",
+      "funnel_stage": "cart",
+      "acceptance_criteria": [
+        "El usuario puede cambiar la cantidad de un ítem o eliminarlo desde la vista de carrito",
+        "El total (suma de precio USD x cantidad) se recalcula automáticamente al modificar el carrito",
+        "El carrito vacío muestra un estado explícito con link al catálogo, no una tabla vacía"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "El total se recalcula en el cliente porque no hay servidor de comercio (desviación explícita de la regla genérica de AGENTS.md 'los totales se recalculan siempre en el servidor' -- no aplica sin backend; el vendedor valida el total manualmente contra el pedido recibido antes de confirmar)."
+    },
+    {
+      "id": "F012",
+      "title": "Formulario de checkout con datos de envío del comprador",
+      "description": "Formulario con nombre, teléfono, dirección/zona y email, enviado vía Netlify Forms, con el contenido del carrito serializado en un input oculto.",
+      "funnel_stage": "checkout",
+      "acceptance_criteria": [
+        "El formulario pide nombre, teléfono, email y dirección/zona de entrega como campos obligatorios",
+        "El formulario tiene `data-netlify=\"true\"` y un input oculto con el resumen del carrito serializado",
+        "Un envío exitoso redirige a la página de confirmación (F018) con el pedido identificable",
+        "El comprador completa el pedido sin necesidad de crear una cuenta"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": true,
+      "requires_architecture_decision": false,
+      "notes": "Toca datos personales del cliente (nombre, teléfono, email, dirección) almacenados en Netlify Forms -- requiere revisión de security-compliance-reviewer antes de build (retención de datos, acceso al dashboard de Netlify, quién puede verlos)."
+    },
+    {
+      "id": "F013",
+      "title": "Selección de zona de envío en checkout",
+      "description": "El formulario de checkout incluye selector de zona: 'Miranda/Caracas' o 'Resto del país (a coordinar por WhatsApp)'.",
+      "funnel_stage": "checkout",
+      "acceptance_criteria": [
+        "El formulario tiene un campo obligatorio para elegir entre las dos zonas de envío del ADR-001",
+        "Si elige 'Resto del país', el texto aclara explícitamente que el costo se coordina por WhatsApp y no se cobra en este flujo",
+        "La zona elegida viaja en el envío de Netlify Forms junto con el resto del pedido"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": true,
+      "notes": "Decisión abierta (ADR-001): tarifa fija o umbral de envío gratis para Miranda/Caracas -- monto TBD del cliente. Default sugerido: no cobrar automáticamente en v1, mostrar 'se confirma monto final por WhatsApp' para ambas zonas hasta tener el número."
+    },
+    {
+      "id": "F014",
+      "title": "Selección de método de pago manual (Pago Móvil / Transferencia)",
+      "description": "Pantalla que muestra los datos bancarios de Pago Móvil y Transferencia en texto copiable, tras enviar el pedido.",
+      "funnel_stage": "checkout",
+      "acceptance_criteria": [
+        "Se muestran los datos de Pago Móvil (teléfono, cédula/RIF, banco) y de Transferencia (número de cuenta) en texto seleccionable/copiable",
+        "El pedido queda explícitamente marcado como 'pendiente de confirmación' en la pantalla",
+        "No se pide ni se almacena ningún dato de tarjeta (PAN) en ningún punto del flujo"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": true,
+      "requires_architecture_decision": false,
+      "notes": "Requiere revisión de seguridad: se exponen datos bancarios propios del negocio en el frontend público -- confirmar con el cliente que está de acuerdo en publicarlos así (vs. enviarlos solo por WhatsApp tras el pedido). Pendiente del cliente: datos bancarios reales (teléfono Pago Móvil, cédula/RIF, banco, número de cuenta de transferencia) -- no inventar."
+    },
+    {
+      "id": "F015",
+      "title": "Campo opcional de cédula/RIF para factura",
+      "description": "Campo opcional en el checkout para que el comprador indique cédula/RIF si necesita factura.",
+      "funnel_stage": "checkout",
+      "acceptance_criteria": [
+        "El campo cédula/RIF es opcional, no bloquea el envío del formulario si se deja vacío",
+        "Si se completa, el valor viaja en el envío de Netlify Forms junto con el resto del pedido",
+        "El formulario aclara para qué se usa el dato (facturación) para no generar desconfianza"
+      ],
+      "status": "failing",
+      "priority": "P2",
+      "requires_security_review": true,
+      "requires_architecture_decision": true,
+      "notes": "Decisión abierta (ADR-001): ¿pedir cédula/RIF para factura en v1? Default sugerido: opcional y no obligatorio, dado que la facturación fiscal no está definida como requisito del negocio -- confirmar con el cliente si Deconova factura formalmente."
+    },
+    {
+      "id": "F016",
+      "title": "Envío del pedido vía Netlify Forms con protección anti-spam",
+      "description": "El formulario de checkout se envía a Netlify Forms con honeypot activado para reducir spam, sin Netlify Function ni backend propio.",
+      "funnel_stage": "checkout",
+      "acceptance_criteria": [
+        "El formulario tiene el campo honeypot configurado según la documentación vigente de Netlify Forms",
+        "Un envío de prueba aparece en el dashboard de Netlify Forms del sitio",
+        "Se documenta en PROGRESS.md la cuota de envíos del plan usado (verificada contra la documentación actual, no asumida)"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": true,
+      "requires_architecture_decision": true,
+      "notes": "Decisión abierta (ADR-001): límites/comportamiento de spam de Netlify Forms cambia con el tiempo -- verificar antes de depender de esto en producción. Requiere revisión de seguridad por almacenar datos de cliente en un servicio de terceros (Netlify)."
+    },
+    {
+      "id": "F017",
+      "title": "Fallback a WhatsApp si falla el envío del formulario",
+      "description": "Si el envío de Netlify Forms falla, la UI muestra error inline y un link wa.me con el pedido pre-llenado como alternativa.",
+      "funnel_stage": "checkout",
+      "acceptance_criteria": [
+        "Si el submit del formulario falla (simulado en el test, ej. interceptando la request), se muestra un mensaje de error inline, no una pantalla en blanco",
+        "El link de fallback abre wa.me con el número de Deconova y un mensaje pre-llenado que incluye el resumen del pedido",
+        "El comprador nunca queda sin una acción disponible para completar el pedido"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": true,
+      "requires_architecture_decision": false,
+      "notes": "El mensaje pre-llenado de wa.me contiene datos del pedido (y potencialmente del comprador) en la URL -- revisar qué se incluye ahí para no filtrar más de lo necesario. Pendiente del cliente: número de WhatsApp de negocio real para el link wa.me."
+    },
+    {
+      "id": "F018",
+      "title": "Página de confirmación de pedido con resumen y comprobante por WhatsApp",
+      "description": "Pantalla de éxito post-checkout con resumen del pedido, datos de pago manual y link wa.me para enviar el comprobante.",
+      "funnel_stage": "post_purchase",
+      "acceptance_criteria": [
+        "Se muestra un resumen de los productos, cantidades y total del pedido enviado",
+        "Se muestra un identificador de pedido (aunque sea generado en el cliente, ej. timestamp+random)",
+        "Hay un botón/link wa.me pre-llenado para enviar el comprobante de pago referenciando el número de pedido",
+        "La página sigue siendo accesible si el usuario recarga (no depende de estado en memoria que se pierda)"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": true,
+      "requires_architecture_decision": false,
+      "notes": "No hay email automático de confirmación (ADR-001 descarta Snipcart) -- el email de notificación es el nativo de Netlify Forms al vendedor, no al comprador. Si se necesita confirmar por email al comprador, es una decisión de negocio a validar (fuera de alcance v1 salvo que el cliente lo pida)."
+    },
+    {
+      "id": "F019",
+      "title": "Registro de pedidos accesible para el vendedor",
+      "description": "El vendedor puede ver y gestionar los pedidos entrantes desde el dashboard de Netlify Forms (export CSV, notificación por email), sin panel de administración propio.",
+      "funnel_stage": "admin",
+      "acceptance_criteria": [
+        "Cada envío de checkout aparece en el dashboard de Netlify Forms con todos los campos legibles",
+        "El vendedor recibe una notificación (email) configurada en Netlify por cada pedido nuevo",
+        "Se documenta en PROGRESS.md el paso a paso para que el vendedor exporte pedidos a CSV"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": true,
+      "requires_architecture_decision": true,
+      "notes": "Decisión abierta (ADR-001): ¿migrar en el futuro a un panel de pedidos (Airtable/Sheets) más allá de Netlify Forms? Default sugerido para v1: quedarse con el dashboard/email nativo de Netlify Forms hasta tener evidencia de volumen que lo justifique. Requiere seguridad por concentrar datos de clientes en el dashboard de Netlify (quién tiene acceso a la cuenta)."
+    },
+    {
+      "id": "F020",
+      "title": "Referencia de precio aproximado en bolívares",
+      "description": "Mostrar, junto al precio en USD, una referencia aproximada en Bs (no vinculante) para el comprador.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "Si se implementa, el precio en Bs se muestra claramente marcado como 'referencial, sujeto a confirmación' y no como precio final",
+        "La tasa usada tiene fecha de actualización visible junto al monto",
+        "El precio en USD sigue siendo el precio de referencia principal en todo el sitio"
+      ],
+      "status": "failing",
+      "priority": "P3",
+      "requires_security_review": false,
+      "requires_architecture_decision": true,
+      "notes": "Decisión abierta (ADR-001), descartada deliberadamente para v1: mostrar una tasa BCV desactualizada como si fuera oficial es un riesgo de credibilidad y de reclamo. Default sugerido: no implementar en v1; la conversión se resuelve manualmente por WhatsApp al confirmar el pedido."
+    },
+    {
+      "id": "F021",
+      "title": "Página \"Quiénes somos\"",
+      "description": "Página de confianza con la historia/propuesta de valor de Deconova como fabricante de muebles.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "La página existe en una ruta estable (ej. /quienes-somos) y está enlazada desde el nav/footer",
+        "El contenido es texto real proporcionado por el cliente, no copy genérico de relleno",
+        "No incluye social proof simulado (logos o testimonios falsos)"
+      ],
+      "status": "failing",
+      "priority": "P1",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pendiente del cliente: texto real sobre la historia/fabricación de Deconova. No inventar historia de marca."
+    },
+    {
+      "id": "F022",
+      "title": "Página de políticas de envío y devolución",
+      "description": "Página con las condiciones de envío (zonas, tiempos) y la política de devolución/cambio, coherente con el flujo manual del negocio.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "La página describe las dos zonas de envío del ADR-001 y qué implica cada una",
+        "La página describe explícitamente el proceso de devolución/cambio (que es manual, coordinado por WhatsApp)",
+        "Está enlazada desde el checkout y desde el footer"
+      ],
+      "status": "failing",
+      "priority": "P1",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pendiente del cliente: política real de devolución/cambio para muebles a medida o bajo pedido (suele ser distinta a la de stock disponible) -- no asumir una política genérica de 30 días."
+    },
+    {
+      "id": "F023",
+      "title": "Página/sección de contacto con WhatsApp directo",
+      "description": "Página o sección accesible desde cualquier parte del sitio con link directo a WhatsApp para consultas fuera del flujo de compra.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "Existe un link wa.me visible en el header o footer de todas las páginas, no solo en checkout",
+        "El link abre WhatsApp con el número de Deconova, sin mensaje pre-llenado obligatorio para consultas generales",
+        "Existe también un dato de contacto alternativo (email o Instagram) por si el comprador no usa WhatsApp"
+      ],
+      "status": "failing",
+      "priority": "P1",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pendiente del cliente: número de WhatsApp de negocio y handle/email de contacto a publicar (mismo dato requerido en F017)."
+    },
+    {
+      "id": "F024",
+      "title": "SEO básico: SSG, metadatos y sitemap",
+      "description": "Páginas de catálogo y producto indexables sin depender de JS, con metadatos por página y sitemap.xml generado en build.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "El HTML servido (curl o view-source, sin ejecutar JS) contiene el nombre y precio del producto en páginas de detalle",
+        "Cada página tiene title y meta description propios (no un valor genérico repetido en todas)",
+        "Existe /sitemap.xml generado en build con todas las rutas de catálogo/producto",
+        "Existe robots.txt permitiendo el rastreo del sitio"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Consistente con la regla de AGENTS.md: contenido de producto/categoría en el HTML inicial, no dependiente de JS. Con static export esto es casi gratis si se hace bien desde F001/F003."
+    },
+    {
+      "id": "F025",
+      "title": "Accesibilidad y diseño mobile-first",
+      "description": "El sitio es usable en mobile (mayoría probable de tráfico desde Instagram) y cumple accesibilidad básica.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "Todas las páginas del funnel (catálogo, producto, carrito, checkout, confirmación) son usables sin scroll horizontal en un viewport de 375px de ancho",
+        "Los botones de acción principal (agregar al carrito, enviar pedido, WhatsApp) tienen un área táctil mínima de 44x44px",
+        "Las imágenes de producto tienen atributo alt descriptivo (no vacío ni genérico 'imagen')",
+        "El formulario de checkout es navegable por teclado y cada campo tiene label asociado"
+      ],
+      "status": "failing",
+      "priority": "P0",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "El canal de origen (Instagram) es mayoritariamente mobile -- degradar esto no es una opción, no un P2."
+    },
+    {
+      "id": "F026",
+      "title": "Decisión de origen de imágenes: /public vs CDN externo",
+      "description": "Definir dónde viven las imágenes de producto (repo /public vs un CDN de imágenes externo) antes de cargar el catálogo real.",
+      "funnel_stage": "admin",
+      "acceptance_criteria": [
+        "Existe una decisión documentada (ADR o nota en PROGRESS.md) sobre si las imágenes viven en /public del repo o en un servicio externo",
+        "Si es /public, se verifica que el tamaño total del repo/build no degrada el tiempo de build/deploy de Netlify de forma notoria",
+        "El criterio de decisión queda escrito (tamaño esperado del catálogo de imágenes, frecuencia de cambio)"
+      ],
+      "status": "failing",
+      "priority": "P1",
+      "requires_security_review": false,
+      "requires_architecture_decision": true,
+      "notes": "Decisión abierta del ADR-001, de solutions-architect. Default sugerido dado el volumen (<20 SKUs, ~5/año): /public en el repo alcanza; reevaluar solo si el peso de imágenes de alta resolución vuelve lento el build de Netlify."
+    },
+    {
+      "id": "F027",
+      "title": "Wishlist / favoritos (descartado para v1)",
+      "description": "Permitir marcar productos como favoritos para revisar luego.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "N/A -- no se implementa en v1"
+      ],
+      "status": "failing",
+      "priority": "P3",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Sobre-alcance para 20 SKUs y compra poco frecuente: el comprador puede simplemente recordar o volver a la página. Reevaluar solo si el catálogo crece de forma sustancial."
+    },
+    {
+      "id": "F028",
+      "title": "Reviews de clientes (descartado para v1)",
+      "description": "Sección de comentarios/calificaciones por producto.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "N/A -- no se implementa en v1"
+      ],
+      "status": "failing",
+      "priority": "P3",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Sin volumen de pedidos ni sistema para recolectar reviews reales, esto terminaría siendo social proof simulado -- explícitamente prohibido en AGENTS.md ('Qué NO hacer' / Copy). No implementar sin un mecanismo real de recolección de reviews verificadas."
+    }
+  ]
+}
