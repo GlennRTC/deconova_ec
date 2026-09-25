@@ -1,18 +1,18 @@
-/* Design system Deconova (aprobado por el cliente, sesión 4). 60% base oscura / 30% neutros / 10% dorado. */
+/* Design system Deconova v2 (claro, estructura tipo catálogo). Ver docs/design-system.md.
+   70% blanco/gris claro / 20% neutros cálidos / 10% dorado. Charcoal solo en hero y footer. */
 :root {
-  --bg-primary: #141210;
-  --bg-surface: #1f1c19;
+  --bg-primary: #ffffff;
+  --bg-surface: #f5f3f0;
+  --bg-dark-section: #141210;
   --accent-gold: #b8935a;
-  --accent-gold-light: #d4b483;
-  --text-primary: #ede6d8;
-  --text-muted: #a89684;
+  --accent-gold-dark: #8f6f3f;
+  --text-primary: #1a1815;
+  --text-muted: #6b6459;
+  --border-subtle: #e5e1db;
   --material-walnut: #4a3327;
   --material-marble: #5c5a57;
-  --contrast-hard: #0d0c0b;
 
-  --font-heading: var(--font-fraunces), serif;
-  --font-accent: var(--font-italiana), serif;
-  --font-label: var(--font-jost), sans-serif;
+  --font-heading: var(--font-manrope), sans-serif;
   --font-body: var(--font-work-sans), sans-serif;
 }
 
@@ -27,42 +27,39 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--font-heading);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 h1 {
-  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-size: clamp(1.75rem, 4.5vw, 3rem);
 }
 
 h2 {
-  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-size: clamp(1.35rem, 3vw, 1.875rem);
 }
 
 a {
-  color: var(--accent-gold-light);
+  color: var(--text-primary);
   text-underline-offset: 0.2em;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--accent-gold-dark);
   outline-offset: 3px;
 }
 
 .label {
-  font-family: var(--font-label);
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.8rem;
+  font-weight: 500;
+  font-size: 0.875rem;
   color: var(--text-muted);
 }
 
@@ -70,65 +67,121 @@ a {
   color: var(--text-muted);
 }
 
-.accent {
-  font-family: var(--font-accent);
-  color: var(--accent-gold-light);
+/* dorado oscuro, no --accent-gold: el dorado claro sobre blanco da 2.85:1 (falla WCAG AA) */
+.price {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--accent-gold-dark);
+  letter-spacing: -0.01em;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: var(--accent-gold);
+  color: var(--text-primary);
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--accent-gold-dark);
+  color: #fff;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .site-header {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem 2rem;
-  padding: 1.25rem clamp(1rem, 4vw, 3rem);
-  background: var(--bg-surface);
-  border-bottom: 1px solid var(--contrast-hard);
+  padding: 0.9rem clamp(1rem, 4vw, 3rem);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .brand {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--accent-gold);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
   text-decoration: none;
-  letter-spacing: 0.04em;
 }
 
 .site-header nav {
   display: flex;
-  gap: 1.5rem;
-  font-family: var(--font-label);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.8rem;
+  align-items: center;
+  gap: 1.25rem;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .site-header nav a {
-  color: var(--text-primary);
   text-decoration: none;
   padding-block: 0.5rem;
 }
 
 .site-header nav a:hover {
-  color: var(--accent-gold-light);
+  text-decoration: underline;
 }
 
-.site-footer {
-  margin-top: 5rem;
-  padding: 3rem clamp(1rem, 4vw, 3rem) 4rem;
-  background: var(--bg-surface);
-  border-top: 3px solid var(--material-walnut);
+.cart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .disponibilidad {
-  margin: 0.5rem 0 0;
+  margin: 0.35rem 0 0;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.disponibilidad::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--text-muted);
 }
 
 .disponibilidad.disponible {
-  color: var(--accent-gold-light);
+  color: var(--text-primary);
 }
 
-.site-header nav [data-testid="cart-count"] {
-  color: var(--accent-gold-light);
-  padding-block: 0.5rem;
+.disponibilidad.disponible::before {
+  background: var(--accent-gold-dark);
+  border-color: var(--accent-gold-dark);
+}
+
+/* sección oscura #2 (la #1 es el hero del home) */
+.site-footer {
+  margin-top: 5rem;
+  padding: 3rem clamp(1rem, 4vw, 3rem) 4rem;
+  background: var(--bg-dark-section);
+  color: #fff;
+}
+
+.site-footer a {
+  color: var(--accent-gold);
+}
+
+.site-footer .label,
+.site-footer .muted {
+  color: #b5ada2;
 }

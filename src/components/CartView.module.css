@@ -1,0 +1,128 @@
+.main {
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+/* líneas a la izquierda, resumen angosto a la derecha */
+.layout {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 56rem) {
+  .layout {
+    grid-template-columns: 1fr 20rem;
+  }
+}
+
+.lines {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 6rem 1fr auto;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.thumb {
+  width: 100%;
+  height: auto;
+  background: var(--bg-surface);
+}
+
+.info p {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.875rem;
+}
+
+.name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+}
+
+.qty button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  background: none;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.qty button:disabled {
+  color: var(--border-subtle);
+  cursor: not-allowed;
+}
+
+.qty output {
+  min-width: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.remove {
+  border: 0;
+  background: none;
+  padding: 0.5rem 0;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+.subtotal {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.summary {
+  padding: 1.5rem;
+  background: var(--bg-surface);
+}
+
+.summary > p:last-child {
+  font-size: 0.875rem;
+  margin-bottom: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.total {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+  font-weight: 700;
+  align-items: baseline;
+}
+
+.total :global(.price) {
+  font-size: 1.5rem;
+}

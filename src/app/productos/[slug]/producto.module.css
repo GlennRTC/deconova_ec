@@ -1,9 +1,9 @@
 .main {
-  padding: 2rem 1rem;
-  max-width: 72rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+  max-width: 80rem;
   margin: 0 auto;
   display: grid;
-  gap: 2rem;
+  gap: 2rem 3rem;
 }
 
 @media (min-width: 48rem) {
@@ -12,15 +12,19 @@
   }
 }
 
-.price {
-  font-size: 1.25rem;
-  margin: 0.5rem 0 1rem;
-  color: var(--accent-gold-light);
-}
-
 /* sin esto, la fila de miniaturas ensancha la columna y saca las flechas del viewport en mobile */
 .main > * {
   min-width: 0;
+}
+
+.main h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+}
+
+.price {
+  font-size: 2rem;
+  margin: 0 0 1rem;
 }
 
 /* medidas en una fila junto al precio: visibles sin scroll también en mobile (F005) */
@@ -31,17 +35,16 @@
   gap: 1.75rem;
   margin: 0 0 1rem;
   padding: 0.75rem 0;
-  border-block: 1px solid var(--material-walnut);
+  border-block: 1px solid var(--border-subtle);
 }
 
 .medidas dt {
-  font-family: var(--font-label);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
   color: var(--text-muted);
 }
 
 .medidas dd {
   margin: 0;
+  font-weight: 600;
 }

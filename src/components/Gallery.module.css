@@ -17,17 +17,18 @@
   min-height: 2.75rem;
   font-size: 1.75rem;
   border: 0;
-  background: rgb(20 18 16 / 0.8);
+  background: rgb(255 255 255 / 0.9);
   color: var(--text-primary);
+  border-radius: 50%;
   cursor: pointer;
 }
 
 .prev {
-  left: 0;
+  left: 0.5rem;
 }
 
 .next {
-  right: 0;
+  right: 0.5rem;
 }
 
 .thumbs {
@@ -47,7 +48,7 @@
 }
 
 .thumbs button[aria-current="true"] {
-  border-color: var(--accent-gold);
+  border-color: var(--text-primary);
 }
 
 .thumbs img {

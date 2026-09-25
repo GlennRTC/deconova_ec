@@ -25,7 +25,7 @@ export default async function Producto({ params }: PageProps<"/productos/[slug]"
       <Gallery images={p.images} alt={p.name} />
       <div>
         <h1>{p.name}</h1>
-        <p className={styles.price}>{formatUsd(p.priceUsd)}</p>
+        <p className={`price ${styles.price}`}>{formatUsd(p.priceUsd)}</p>
         {p.dimensionesCm ? (
           <dl className={styles.medidas} data-testid="medidas" aria-label="Medidas">
             <div>

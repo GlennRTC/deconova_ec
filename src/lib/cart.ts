@@ -62,3 +62,12 @@ export function addToCart(slug: string) {
       : [...items, { slug, qty: 1 }],
   );
 }
+
+export function setQty(slug: string, qty: number) {
+  const q = Math.max(1, Math.min(Math.trunc(qty), MAX_QTY));
+  write(read().map((i) => (i.slug === slug ? { ...i, qty: q } : i)));
+}
+
+export function removeFromCart(slug: string) {
+  write(read().filter((i) => i.slug !== slug));
+}

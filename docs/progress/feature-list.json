@@ -36,7 +36,7 @@
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Pendiente del cliente: acceso a fotos reales de producto y paleta/tipografía exacta extraída del Instagram (no inventar valores de marca). | Sesión 4: passing con el design system entregado por el cliente (docs/design-system.md) y fotos placeholder (el cliente aún no tiene fotos). Verificado con e2e/home.spec.ts + revisión visual por capturas mobile/desktop."
+      "notes": "Pendiente del cliente: acceso a fotos reales de producto y paleta/tipografía exacta extraída del Instagram (no inventar valores de marca). | Sesión 4: passing con el design system entregado por el cliente (docs/design-system.md) y fotos placeholder (el cliente aún no tiene fotos). Verificado con e2e/home.spec.ts + revisión visual por capturas mobile/desktop. | Sesión 7: rediseño a design system v2 (claro, estructura tipo catálogo) por pedido del cliente; home.spec.ts actualizado a la nueva especificación de fuentes (Manrope/Work Sans) + regla de máximo 2 secciones charcoal. Sigue passing."
     },
     {
       "id": "F003",
@@ -176,11 +176,11 @@
         "El total (suma de precio USD x cantidad) se recalcula automáticamente al modificar el carrito",
         "El carrito vacío muestra un estado explícito con link al catálogo, no una tabla vacía"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "El total se recalcula en el cliente porque no hay servidor de comercio (desviación explícita de la regla genérica de AGENTS.md 'los totales se recalculan siempre en el servidor' -- no aplica sin backend; el vendedor valida el total manualmente contra el pedido recibido antes de confirmar)."
+      "notes": "El total se recalcula en el cliente porque no hay servidor de comercio (desviación explícita de la regla genérica de AGENTS.md 'los totales se recalculan siempre en el servidor' -- no aplica sin backend; el vendedor valida el total manualmente contra el pedido recibido antes de confirmar). | Sesión 7: passing. /carrito/ (CartView): cantidad −/+ (mín 1, máx 10), Eliminar, subtotal por línea, total referencial, envío 'se define en el pedido', estado vacío con link al catálogo. El contador del header ahora es link. Verificado con e2e/carrito-vista.spec.ts. Sin botón de checkout todavía: llega con F012."
     },
     {
       "id": "F012",

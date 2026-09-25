@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { Fraunces, Italiana, Jost, Work_Sans } from "next/font/google";
+import { Manrope, Work_Sans } from "next/font/google";
 import Link from "next/link";
 import CartCount from "@/components/CartCount";
 import "./globals.css";
 
-const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces" });
-const italiana = Italiana({ subsets: ["latin"], weight: "400", variable: "--font-italiana" });
-const jost = Jost({ subsets: ["latin"], weight: ["300", "400"], variable: "--font-jost" });
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 const workSans = Work_Sans({ subsets: ["latin"], variable: "--font-work-sans" });
 
 export const metadata: Metadata = {
@@ -16,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${fraunces.variable} ${italiana.variable} ${jost.variable} ${workSans.variable}`}>
+    <html lang="es" className={`${manrope.variable} ${workSans.variable}`}>
       <body>
         <header className="site-header">
           <Link href="/" data-testid="brand" className="brand">Deconova</Link>

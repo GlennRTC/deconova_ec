@@ -1,129 +1,74 @@
-/* Hero asimétrico: texto a la izquierda, foto desplazada hacia abajo; nada centrado. */
+/* Hero oscuro partido: texto 5 / foto 7, foto a sangre a la derecha. */
 .hero {
   display: grid;
-  gap: 2.5rem;
-  padding: 3rem clamp(1rem, 4vw, 3rem) 0;
+  background: var(--bg-dark-section);
+  color: #fff;
+}
+
+.heroText {
+  padding: 3rem clamp(1rem, 4vw, 3rem);
+  align-self: center;
 }
 
 .heroText h1 {
-  margin: 0.5rem 0 1.5rem;
-  max-width: 14ch;
+  margin: 0.5rem 0 1rem;
+  max-width: 16ch;
 }
 
-.heroText .accent {
-  display: block;
-  font-size: 0.85em;
-  margin-top: 0.3em;
+.kicker {
+  margin: 0;
+  font-weight: 500;
+  color: var(--accent-gold);
 }
 
 .lead {
-  max-width: 38ch;
-  color: var(--text-muted);
-  font-size: 1.05rem;
-}
-
-.cta {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.9rem 1.75rem;
-  background: var(--accent-gold);
-  color: var(--bg-primary);
-  border-radius: 3px;
-  font-family: var(--font-label);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.85rem;
-  text-decoration: none;
-  transition: background-color 0.2s;
-}
-
-.cta:hover {
-  background: var(--accent-gold-light);
+  max-width: 40ch;
+  margin: 0 0 1.75rem;
+  color: #d6cfc5;
 }
 
 .heroImg {
   width: 100%;
   height: auto;
   display: block;
-  border-left: 3px solid var(--accent-gold);
 }
 
 @media (min-width: 56rem) {
   .hero {
-    grid-template-columns: 7fr 5fr;
-    align-items: start;
-    padding-top: 5rem;
-  }
-
-  .heroText {
-    padding-top: 3rem;
-  }
-
-  .heroImg {
-    margin-top: 4rem;
+    grid-template-columns: 5fr 7fr;
   }
 }
 
-/* Destacados: una pieza grande + dos apiladas, no 3 columnas iguales. */
 .destacados {
-  padding: 5rem clamp(1rem, 4vw, 3rem) 0;
+  padding: 3.5rem clamp(1rem, 4vw, 3rem) 0;
+  max-width: 90rem;
+  margin: 0 auto;
 }
 
-.destacadosGrid {
+.destacados h2 {
+  margin: 0;
+}
+
+.grid {
   list-style: none;
   padding: 0;
-  margin: 2rem 0 0;
+  margin: 1.5rem 0 0;
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(15rem, 45%), 1fr));
+  gap: 2.5rem 1.25rem;
 }
 
-@media (min-width: 48rem) {
-  .destacadosGrid {
-    grid-template-columns: 3fr 2fr;
-  }
-
-  .grande {
-    grid-row: span 2;
-  }
-}
-
-.pieza {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  height: 100%;
-  padding: 0.75rem;
-  background: var(--bg-surface);
-  border: 1px solid transparent;
-  color: var(--text-primary);
-  text-decoration: none;
-  transition: border-color 0.2s;
-}
-
-.pieza:hover,
-.pieza:focus-visible {
-  border-color: var(--accent-gold);
-}
-
-.pieza img {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.piezaNombre {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-}
-
-/* Cómo comprar: título en columna angosta, pasos numerados a la derecha. */
+/* Cómo comprar: título en columna angosta, pasos a la derecha (sección asimétrica). */
 .comoComprar {
-  margin-top: 5rem;
-  padding: 4rem clamp(1rem, 4vw, 3rem);
-  border-top: 1px solid var(--material-walnut);
+  margin-top: 4rem;
+  padding: 3.5rem clamp(1rem, 4vw, 3rem);
+  background: var(--bg-surface);
   display: grid;
   gap: 2rem;
+}
+
+.comoComprar h2 {
+  margin-top: 0;
 }
 
 @media (min-width: 56rem) {
@@ -138,39 +83,34 @@
   padding: 0;
   margin: 0;
   display: grid;
-  gap: 2rem;
+  gap: 1.75rem;
 }
 
 .pasos li {
   counter-increment: paso;
   display: grid;
-  grid-template-columns: 3.5rem 1fr;
+  grid-template-columns: 2.75rem 1fr;
   column-gap: 1rem;
 }
 
 .pasos li::before {
-  content: counter(paso, decimal-leading-zero);
+  content: counter(paso);
   grid-row: span 2;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--text-primary);
+  border-radius: 50%;
   font-family: var(--font-heading);
-  font-size: 2.25rem;
-  line-height: 1;
-  color: var(--accent-gold);
+  font-weight: 800;
 }
 
 .pasos h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1.25rem;
+  margin: 0.3rem 0 0.25rem;
+  font-size: 1.1rem;
 }
 
 .pasos p {
   margin: 0;
-}
-
-/* la pieza grande ocupa dos filas: su foto crece para llenar la altura en vez de dejar un hueco */
-@media (min-width: 48rem) {
-  .grande .pieza img {
-    flex: 1 1 0;
-    min-height: 0;
-    object-fit: cover;
-  }
 }
