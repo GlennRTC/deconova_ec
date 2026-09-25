@@ -1,0 +1,13 @@
+/* Placeholder: paleta y tipografía reales llegan con F002 (identidad visual). */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  color: #2b2622;
+  background: #f6f2ec;
+}

@@ -14,11 +14,11 @@
         "Un test de Playwright navega a '/' y verifica que responde 200 y renderiza al menos un elemento identificable (ej. el logo o el nav)",
         "El test corre con un solo comando documentado en AGENTS.md (sección Comandos de proyecto)"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Es la base de toda sesión futura: sin esto, el protocolo de inicio de sesión de AGENTS.md (paso 4-5) no se puede seguir. Bloquea todo lo demás."
+      "notes": "Es la base de toda sesión futura: sin esto, el protocolo de inicio de sesión de AGENTS.md (paso 4-5) no se puede seguir. Bloquea todo lo demás. | Sesión 1: verificado con `./scripts/init.sh --no-dev` (lint + build export + Playwright mobile/desktop contra /out servido en :3100)."
     },
     {
       "id": "F002",

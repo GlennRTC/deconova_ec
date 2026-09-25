@@ -42,7 +42,7 @@ npm run build
 test -f out/index.html || { echo "build no generó out/index.html (¿falta output: 'export'?)" >&2; exit 1; }
 
 # --- 6. Verificación end-to-end real ---
-# playwright.config.ts levanta `python3 -m http.server 3000 -d out` (webServer) y recorre:
+# playwright.config.ts levanta `python3 -m http.server 3100 -d out` (webServer, puerto 3100 para no chocar con next dev en :3000) y recorre:
 # catálogo -> producto -> agregar al carrito -> checkout -> confirmación con datos de pago
 # y link wa.me con el nº de pedido. El POST a Netlify Forms se intercepta en el test
 # (solo existe desplegado); para probarlo de verdad: `netlify deploy --build` (preview).

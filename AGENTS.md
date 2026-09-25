@@ -1,3 +1,13 @@
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
 # AGENTS.md — Deconova eCommerce (deconova_ec)
 
 > Formato estándar cross-tool (Codex, Cursor, Claude Code y otros lo leen). En Claude Code, este archivo se usa automáticamente **solo si no existe un `CLAUDE.md`** en la misma carpeta -- si necesitas algo específico de Claude Code que este formato no cubre, agrega un `CLAUDE.md` corto adicional (ver nota al final).
@@ -75,7 +85,7 @@ Si estás retomando este proyecto sin contexto de una sesión anterior, sigue es
 npm run dev              # dev server en :3000
 npm run build            # static export → /out
 npm run lint
-npx playwright test      # e2e (catálogo → carrito → checkout → confirmación)
+npm run build && npx playwright test   # e2e contra /out (sin build previo prueba un build viejo)
 netlify deploy --build   # preview real: Netlify Forms solo funciona desplegado
 ```
 
