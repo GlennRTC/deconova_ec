@@ -1,0 +1,5 @@
+# Next.js static export (ADR-001): Netlify solo publica /out, sin servidor.
+# Node: lo toma de .nvmrc.
+[build]
+  command = "npm run build"
+  publish = "out"
