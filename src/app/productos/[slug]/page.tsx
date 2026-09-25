@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import AddToCart from "@/components/AddToCart";
 import Disponibilidad from "@/components/Disponibilidad";
 import Gallery from "@/components/Gallery";
 import { formatUsd, products } from "@/lib/products";
@@ -51,6 +52,7 @@ export default async function Producto({ params }: PageProps<"/productos/[slug]"
             ? "Listo para entrega."
             : "Se fabrica al confirmar tu pedido; el tiempo de entrega se coordina contigo."}
         </p>
+        <AddToCart slug={p.slug} />
       </div>
     </main>
   );

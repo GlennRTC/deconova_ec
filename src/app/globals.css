@@ -127,3 +127,8 @@ a {
 .disponibilidad.disponible {
   color: var(--accent-gold-light);
 }
+
+.site-header nav [data-testid="cart-count"] {
+  color: var(--accent-gold-light);
+  padding-block: 0.5rem;
+}

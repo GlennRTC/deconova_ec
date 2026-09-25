@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Italiana, Jost, Work_Sans } from "next/font/google";
 import Link from "next/link";
+import CartCount from "@/components/CartCount";
 import "./globals.css";
 
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces" });
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <nav aria-label="Principal">
             <Link href="/catalogo/">Catálogo</Link>
             <a href="#contacto">Contacto</a>
+            <CartCount />
           </nav>
         </header>
         {children}

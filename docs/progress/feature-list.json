@@ -100,7 +100,7 @@
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Refleja ADR-001: inventario editorial, sin decremento atómico. La verificación real de stock ocurre en la confirmación manual del vendedor, no en el código. | Sesión 5: passing con disponibilidad demo asignada al azar (sofá bajo pedido; mesa y poltrona disponibles). Campo disponible boolean obligatorio, validado en build. 'No bloquea el carrito' se re-verifica cuando exista F010."
+      "notes": "Refleja ADR-001: inventario editorial, sin decremento atómico. La verificación real de stock ocurre en la confirmación manual del vendedor, no en el código. | Sesión 5: passing con disponibilidad demo asignada al azar (sofá bajo pedido; mesa y poltrona disponibles). Campo disponible boolean obligatorio, validado en build. 'No bloquea el carrito' se re-verifica cuando exista F010. | Sesión 6: re-verificado con carrito real: producto 'bajo pedido' se agrega sin bloqueo (e2e/carrito.spec.ts)."
     },
     {
       "id": "F007",
@@ -160,11 +160,11 @@
         "El carrito solo guarda SKU/cantidad/variante -- ningún dato personal del comprador",
         "Un test de Playwright agrega un producto, navega a otra página y confirma que el contador del carrito no se resetea"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Sin backend de carrito ni Snipcart (ADR-001). requires_security_review=false porque el carrito en sí no contiene datos personales del cliente, a diferencia del formulario de checkout (F012)."
+      "notes": "Sin backend de carrito ni Snipcart (ADR-001). requires_security_review=false porque el carrito en sí no contiene datos personales del cliente, a diferencia del formulario de checkout (F012). | Sesión 6: passing. Store src/lib/cart.ts (useSyncExternalStore sobre localStorage 'deconova:cart:v1', sincroniza pestañas). Guarda solo {slug, qty}; variante se agrega con F009. localStorage se trata como no confiable: se descartan slugs fuera del catálogo, qty no entera o <= 0, y se topa en 10. Verificado con e2e/carrito.spec.ts."
     },
     {
       "id": "F011",

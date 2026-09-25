@@ -66,3 +66,11 @@
 **Estado al cerrar:** F005 passing, F006 passing (con datos placeholder). El criterio de F006 "bajo pedido no bloquea agregar al carrito" es trivialmente cierto hoy (no hay carrito); re-verificarlo en F010.
 **Pendiente para la próxima sesión:** F010 (carrito localStorage) y F011 (vista de carrito) — con ellas empieza el embudo de compra. Medidas, disponibilidad y fotos reales siguen pendientes del cliente.
 **Commit:** F005 + F006: medidas y disponibilidad en catálogo y ficha
+
+## 2026-09-25 — Sesión 6
+**Feature(s) trabajada(s):** F010 — Carrito persistente en localStorage
+**Qué se hizo:** `src/lib/cart.ts`: store de módulo con `useSyncExternalStore` sobre `localStorage` (clave `deconova:cart:v1`), sin React Context — botón y contador comparten estado, y el evento `storage` sincroniza otras pestañas gratis. Guarda solo `{slug, qty}` (variante llega con F009). El contenido de localStorage se trata como entrada no confiable: JSON inválido → carrito vacío; slugs fuera del catálogo, qty no entera o ≤ 0 se descartan; qty se topa en `MAX_QTY = 10` (marcado `ponytail:`). `AddToCart` en la ficha (debajo de disponibilidad, confirmación "N en tu carrito." con línea reservada para no saltar el layout); `CartCount` en el header del layout. El contador es texto, no link: se vuelve link cuando exista `/carrito/` (F011).
+**Verificación realizada:** `env -u NODE_ENV ./scripts/init.sh --no-dev` → 54/54 Playwright. Nuevo `e2e/carrito.spec.ts`: persiste al navegar y recargar; producto "bajo pedido" se agrega (cierra el criterio pendiente de F006); localStorage contiene exactamente `[{slug, qty}]` y ninguna otra clave; datos corruptos/manipulados no rompen la página; tope deshabilita el botón; cero errores de consola/hidratación con carrito lleno en 3 páginas. Captura de la ficha revisada.
+**Estado al cerrar:** F010 passing.
+**Pendiente para la próxima sesión:** F011 (vista `/carrito/` con cantidades, eliminar, total y estado vacío) — convertir `CartCount` en link a esa página. El total será solo informativo (el vendedor recalcula al confirmar, ver AGENTS.md).
+**Commit:** F010: carrito persistente en localStorage
