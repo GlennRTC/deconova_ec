@@ -1,0 +1,23 @@
+/* Estructural; el estilo de marca llega con F002. */
+.main {
+  padding: 2rem 1rem;
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 48rem) {
+  .main {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+.price {
+  font-size: 1.25rem;
+}
+
+/* sin esto, la fila de miniaturas ensancha la columna y saca las flechas del viewport en mobile */
+.main > * {
+  min-width: 0;
+}

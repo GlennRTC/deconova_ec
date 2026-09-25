@@ -3,18 +3,29 @@
     "slug": "demo-sofa-tres-puestos",
     "name": "[DEMO] Sofá tres puestos",
     "priceUsd": 1250,
-    "images": ["/productos/placeholder.svg"]
+    "images": [
+      "/productos/placeholder-frente.svg",
+      "/productos/placeholder-lateral.svg",
+      "/productos/placeholder-detalle.svg",
+      "/productos/placeholder-ambiente.svg"
+    ]
   },
   {
     "slug": "demo-mesa-comedor-seis",
     "name": "[DEMO] Mesa de comedor seis puestos",
     "priceUsd": 980,
-    "images": ["/productos/placeholder.svg"]
+    "images": [
+      "/productos/placeholder-frente.svg",
+      "/productos/placeholder-lateral.svg",
+      "/productos/placeholder-detalle.svg"
+    ]
   },
   {
     "slug": "demo-poltrona",
     "name": "[DEMO] Poltrona",
     "priceUsd": 540,
-    "images": ["/productos/placeholder.svg"]
+    "images": [
+      "/productos/placeholder-frente.svg"
+    ]
   }
 ]

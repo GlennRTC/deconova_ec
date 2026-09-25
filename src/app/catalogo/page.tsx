@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { formatUsd, products } from "@/lib/products";
 import styles from "./catalogo.module.css";
 
@@ -12,8 +13,10 @@ export default function Catalogo() {
       <ul className={styles.grid}>
         {products.map((p) => (
           <li key={p.slug} data-testid="product" data-slug={p.slug}>
-            <Image src={p.images[0]} alt={p.name} width={800} height={600} className={styles.img} />
-            <h2 className={styles.name}>{p.name}</h2>
+            <Link href={`/productos/${p.slug}/`}>
+              <Image src={p.images[0]} alt={p.name} width={800} height={600} className={styles.img} />
+              <h2 className={styles.name}>{p.name}</h2>
+            </Link>
             <p className={styles.price}>{formatUsd(p.priceUsd)}</p>
           </li>
         ))}

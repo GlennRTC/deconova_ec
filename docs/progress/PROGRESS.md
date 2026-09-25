@@ -40,3 +40,12 @@
 **Estado al cerrar:** F003 passing (con data demo).
 **Pendiente para la próxima sesión:** F004 (página de producto con galería), que habilita el link desde las tarjetas del catálogo. F002 sigue esperando paleta/tipografía/fotos del cliente. Nota operativa: la shell es zsh — usar `$?` o `$pipestatus`, no `${PIPESTATUS[0]}`.
 **Commit:** F003: catálogo estático desde data/products.json
+
+## 2026-09-25 — Sesión 3
+**Feature(s) trabajada(s):** F004 — Página de producto con galería multi-imagen
+**Qué se hizo:** `/productos/[slug]/` estática vía `generateStaticParams` + `dynamicParams = false` (slug fuera del JSON = 404). Galería client component (`src/components/Gallery.tsx`): imagen principal + flechas anterior/siguiente (circulares) + miniaturas como `<button>` con `aria-current`; con 1 sola foto no renderiza controles (degradación del criterio 3). Tarjetas del catálogo ahora enlazan al detalle. Placeholders por ángulo (frente/lateral/detalle/ambiente); demo con 4, 3 y 1 foto a propósito para cubrir la degradación. Next 16: `priority` está deprecado → se usa `preload` en la imagen principal.
+**Bug encontrado y corregido:** en mobile, 4 miniaturas ensanchaban la columna del grid (`min-width: auto` de los grid items) y la flecha "siguiente" quedaba fuera del viewport, inalcanzable. Fix: `.main > * { min-width: 0 }` en `producto.module.css`. Lo detectó el e2e mobile, no una revisión visual.
+**Verificación realizada:** `env -u NODE_ENV ./scripts/init.sh --no-dev` → 18/18 Playwright (mobile+desktop): navegación con flechas/miniaturas/vuelta circular, producto de 1 foto sin controles, link catálogo→detalle, slug inexistente 404. HTML generado: principal con `<link rel="preload">`, miniaturas `loading="lazy"`.
+**Estado al cerrar:** F004 passing, con un límite: no hay `srcset`/tamaños por ancho porque `images.unoptimized` no genera variantes; eso queda en F026 (decisión de CDN/loader).
+**Pendiente para la próxima sesión:** F005 (medidas) y F006 (disponibilidad): ambas agregan campos al JSON y se muestran en la página de producto recién creada. F002 sigue bloqueada por datos de marca del cliente.
+**Commit:** F004: página de producto con galería

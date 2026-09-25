@@ -64,11 +64,11 @@
         "Las imágenes usan next/image con lazy loading y tamaños responsive",
         "Si un producto del JSON tiene menos de 3 imágenes, la página no rompe (degrada mostrando las disponibles, no un error)"
       ],
-      "status": "failing",
+      "status": "passing",
       "priority": "P0",
       "requires_security_review": false,
       "requires_architecture_decision": false,
-      "notes": "Pendiente del cliente: fotografía real por producto (mínimo 3 ángulos + 1 de ambiente). Sin esto se usa placeholder, hay que ser explícito en el pitch de que no es foto final."
+      "notes": "Pendiente del cliente: fotografía real por producto (mínimo 3 ángulos + 1 de ambiente). Sin esto se usa placeholder, hay que ser explícito en el pitch de que no es foto final. | Sesión 3: passing con fotos placeholder. Principal con preload, miniaturas lazy. Sin srcset: con images.unoptimized no hay variantes por ancho; srcset real depende de F026 (loader/CDN). Verificado con e2e/producto.spec.ts (4, 3 y 1 foto; mobile+desktop)."
     },
     {
       "id": "F005",
