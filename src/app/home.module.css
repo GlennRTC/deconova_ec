@@ -27,12 +27,6 @@
   color: #d6cfc5;
 }
 
-.heroImg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 @media (min-width: 56rem) {
   .hero {
     grid-template-columns: 5fr 7fr;
@@ -47,6 +41,10 @@
 
 .destacados h2 {
   margin: 0;
+}
+
+.ambientes {
+  margin-top: 1.5rem;
 }
 
 .grid {

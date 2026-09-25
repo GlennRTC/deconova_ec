@@ -1,6 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
+import CategoryNav from "@/components/CategoryNav";
+import HeroCarousel from "@/components/HeroCarousel";
 import ProductCard from "@/components/ProductCard";
+import { categories } from "@/lib/categories";
 import { products } from "@/lib/products";
 import styles from "./home.module.css";
 
@@ -10,6 +12,15 @@ const pasos = [
   ["Paga por Pago Móvil o transferencia", "Los datos aparecen al confirmar el pedido. Nos envías el comprobante por WhatsApp."],
   ["Coordinamos la entrega", "Flete propio en Miranda y Caracas. Al resto del país, lo acordamos contigo."],
 ];
+
+const ambientes = [
+  { src: "/home/hero-sala.svg", alt: "Foto de ambiente pendiente: sala", caption: "Sala" },
+  { src: "/home/hero-comedor.svg", alt: "Foto de ambiente pendiente: comedor", caption: "Comedor" },
+  { src: "/home/hero-estudio.svg", alt: "Foto de ambiente pendiente: estudio", caption: "Estudio" },
+];
+
+// una pieza por categoría
+const destacados = categories.flatMap((c) => products.find((p) => p.categoria === c.slug) ?? []);
 
 export default function Home() {
   return (
@@ -25,20 +36,20 @@ export default function Home() {
           </p>
           <Link href="/catalogo/" className="btn">Ver catálogo</Link>
         </div>
-        <Image
-          src="/home/hero-placeholder.svg"
-          alt="Foto de ambiente pendiente"
-          width={1200}
-          height={800}
-          preload
-          className={styles.heroImg}
-        />
+        <HeroCarousel slides={ambientes} />
+      </section>
+
+      <section className={styles.destacados} aria-labelledby="ambientes">
+        <h2 id="ambientes">Explora por ambiente</h2>
+        <div className={styles.ambientes}>
+          <CategoryNav todas={false} />
+        </div>
       </section>
 
       <section className={styles.destacados} aria-labelledby="destacados">
         <h2 id="destacados">Del catálogo</h2>
         <ul className={styles.grid}>
-          {products.slice(0, 4).map((p) => (
+          {destacados.map((p) => (
             <li key={p.slug}>
               <ProductCard p={p} />
             </li>

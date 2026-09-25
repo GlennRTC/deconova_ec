@@ -453,6 +453,45 @@
       "requires_security_review": false,
       "requires_architecture_decision": false,
       "notes": "Sin volumen de pedidos ni sistema para recolectar reviews reales, esto terminaría siendo social proof simulado -- explícitamente prohibido en AGENTS.md ('Qué NO hacer' / Copy). No implementar sin un mecanismo real de recolección de reviews verificadas."
+    },
+    {
+      "id": "F029",
+      "title": "Carrusel de ambientes en el hero del home",
+      "description": "La foto del hero se reemplaza por un carrusel de fotos de ambiente (sala, comedor, estudio), navegable con swipe, flechas y puntos.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "El hero muestra al menos 3 diapositivas; flechas anterior/siguiente y puntos cambian la diapositiva visible (circular)",
+        "En mobile se navega con swipe (scroll-snap nativo) y el punto activo se actualiza",
+        "Accesible: región con nombre, cada diapositiva anunciada como 'N de M', botones con aria-label, punto activo con aria-current",
+        "Sin autoplay (evita requerir botón de pausa WCAG 2.2.2); respeta prefers-reduced-motion",
+        "El hero conserva una sola llamada a la acción (criterio de F002)"
+      ],
+      "status": "passing",
+      "priority": "P1",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pedido del cliente (sesión 8). Fotos de ambiente placeholder hasta recibir fotografía real. | Sesión 8: passing. HeroCarousel con scroll-snap nativo + flechas + puntos (targets 44px), diapositivas no visibles con aria-hidden. Verificado con e2e/hero-carrusel.spec.ts."
+    },
+    {
+      "id": "F030",
+      "title": "Navegación del catálogo por categorías",
+      "description": "El comprador filtra el catálogo por categoría (Sofás y sillones, Sillas y mesas, Escritorios y sillas de escritorio). Diseño definido con conversion-ux-designer.",
+      "funnel_stage": "catalog",
+      "acceptance_criteria": [
+        "Cada categoría es una ruta estática (/catalogo/sofas-y-sillones/, /catalogo/sillas-y-mesas/, /catalogo/escritorios/) que responde 200 y trae en el HTML inicial su H1 y solo sus productos",
+        "Selector de ambiente con tarjetas rectangulares (ícono lineal + nombre + conteo), no pills; 'Todas' + 3 categorías en el catálogo",
+        "La tarjeta activa tiene aria-current='page' y línea inferior dorada; en mobile siempre queda visible",
+        "El conteo de cada tarjeta coincide con los productos del JSON",
+        "Navegable por teclado; tarjetas ≥44px en mobile; la página no desborda horizontalmente",
+        "Una categoría sin productos muestra un estado vacío con link al catálogo, no un 404",
+        "El home tiene la sección 'Explora por ambiente' con links a las 3 categorías",
+        "categoria en data/products.json es obligatoria y se valida contra los 3 slugs en build"
+      ],
+      "status": "passing",
+      "priority": "P1",
+      "requires_security_review": false,
+      "requires_architecture_decision": false,
+      "notes": "Pedido del cliente (sesión 8). Distinta de F008 (búsqueda por texto). | Sesión 8: passing. Diseño de conversion-ux-designer (selector de ambiente con rutas SSG). Desviación: grid auto-fit (2×2 en mobile) en vez de scroll horizontal, porque con scroll la categoría activa quedaba fuera de pantalla. Verificado con e2e/categorias.spec.ts; estado vacío verificado a mano (vaciar categoría + build) porque la demo no tiene categorías vacías."
     }
   ]
 }
