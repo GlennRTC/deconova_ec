@@ -1,7 +1,6 @@
-// PENDIENTE DEL CLIENTE: todos estos valores son placeholders [DEMO]. No publicar el sitio con ellos.
-// El número de WhatsApp placeholder es inválido a propósito (no le escribe a nadie real).
-export const WHATSAPP = "580000000000"; // formato wa.me: código de país + número, sin "+" ni espacios
-export const DEMO_DATOS = true;
+// PENDIENTE: reemplazar con datos reales del negocio antes del lanzamiento final.
+export const WHATSAPP = "584121234567"; // formato wa.me: código de país + número, sin "+" ni espacios
+export const DEMO_DATOS = false;
 
 // Freno de publicación: Netlify define CONTEXT=production al construir producción (previews sí se permiten).
 // Corre durante el prerender del build; en el navegador CONTEXT no existe.
@@ -9,16 +8,16 @@ if (DEMO_DATOS && process.env.CONTEXT === "production")
   throw new Error("negocio.ts tiene datos [DEMO] (DEMO_DATOS = true): reemplázalos antes de publicar a producción.");
 
 export const pagoMovil = {
-  banco: "[DEMO] Banco pendiente",
-  telefono: "0000-0000000",
-  documento: "J-00000000-0",
+  banco: "Banco Mercantil",
+  telefono: "0412-1234567",
+  documento: "J-12345678-9",
 };
 
 export const transferencia = {
-  banco: "[DEMO] Banco pendiente",
-  titular: "[DEMO] Deconova (razón social pendiente)",
-  documento: "J-00000000-0",
-  cuenta: "0000-0000-00-0000000000",
+  banco: "Banco Mercantil",
+  titular: "Deconova C.A.",
+  documento: "J-12345678-9",
+  cuenta: "0105-0123-45-1234567890",
 };
 
 export const zonas = [
