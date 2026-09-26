@@ -12,7 +12,7 @@ export default function CatalogoView({ titulo, activo, items }: { titulo: string
       {items.length ? (
         <>
           <p className="muted">
-            {items.length} {items.length === 1 ? "pieza" : "piezas"} · fabricadas en Miranda · precios en USD
+            {items.length} {items.length === 1 ? "pieza" : "piezas"} · fabricadas en Miranda · precios en Ref.
           </p>
           <ul className={styles.grid}>
             {items.map((p) => (

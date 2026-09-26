@@ -32,5 +32,5 @@ export const products: Product[] = (raw as unknown as Product[]).map(validate);
 const slugs = new Set(products.map((p) => p.slug));
 if (slugs.size !== products.length) throw new Error("data/products.json: slugs duplicados");
 
-const usd = new Intl.NumberFormat("es-VE", { style: "currency", currency: "USD" });
-export const formatUsd = (n: number) => usd.format(n);
+const ref = new Intl.NumberFormat("es-VE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+export const formatUsd = (n: number) => `Ref. ${ref.format(n)}`;

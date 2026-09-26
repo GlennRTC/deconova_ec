@@ -58,7 +58,7 @@ export default function CartView() {
             <span className="price" data-testid="cart-total">{formatUsd(total)}</span>
           </p>
           <p className="muted">
-            Total referencial en USD. Confirmamos el monto final contigo al revisar tu pedido.
+            Total referencial en Ref. Confirmamos el monto final contigo al revisar tu pedido.
           </p>
           <Link href="/checkout/" className={`btn ${styles.continuar}`}>Continuar con el pedido</Link>
         </aside>
